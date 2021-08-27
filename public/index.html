@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="javascripts/jquery.js"></script>
+  <script src="javascripts/handlebars.js"></script>
+  <link rel="stylesheet" href="stylesheets/contacts.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <section id="header">
+    <h1>Contacts Manager</h1>
+    <p>Using jQuery, Handlebars and JavaScript</p>
+  </section>
+
+  <section id="menu">
+    <div>
+      <button class="add-contact">Add Contact</button>
+    </div>
+
+    <div id="searchArea">
+      <input type="text" name="search" id="search" placeholder="Search" value="">
+      <a href="#" id="clearFilters">Clear Filters</a>
+    </div>
+  </section>
+
+  <section id="no-contacts">
+    <div>
+      <h2>There are no contacts.</h2>
+      <button class="add-contact">Add Contact</button>
+    </div>
+  </section>
+
+  <section class="create-contact">
+    <h2>Create Contact</h2>
+    <form action="http://localhost:3000/api/contacts/" method="post" class="create-contact-form">
+      <div class="line">
+        <label>Full name:</label>
+        <input type="text" name="full_name" class="full_name" required>
+      </div>
+
+      <div class="line">
+        <label>Email address:</label>
+        <input type="email" name="email" class="email" required>
+      </div>
+
+      <div class="line">
+        <label>Telephone number:</label>
+        <input type="text" name="phone_number" class="phone_number" required>
+      </div>
+
+      <p>Optional. For multiple tags, separate with a comma.</p>
+      <div class="line">
+        <label>Tags:</label>
+        <input type="text" name="tags" class="tags">
+      </div>
+
+      <div class="line">
+        <label></label>
+        <button type="submit" class="btn submitBtn">Submit</button>
+        <button class="btn cancelBtn">Cancel</button>
+      </div>
+
+    </form>
+  </section>
+
+  <section id="contactsContainer">
+  </section>
+
+  <section class="update-contact">
+    <h2>Edit Contact</h2>
+    <form action="http://localhost:3000/api/contacts/" method="post" class="update-contact-form">
+      <div class="line">
+        <label>Full name:</label>
+        <input type="text" name="full_name" class="full_name" required>
+      </div>
+
+      <div class="line">
+        <label>Email address:</label>
+        <input type="email" name="email" class="email" required>
+      </div>
+
+      <div class="line">
+        <label>Telephone number:</label>
+        <input type="text" name="phone_number" class="phone_number" required>
+      </div>
+
+      <p>Optional. For multiple tags, separate with a comma.</p>
+      <div class="line">
+        <label>Tags:</label>
+        <input type="text" name="tags" class="tags">
+      </div>
+
+      <div class="line">
+        <label></label>
+        <button type="submit" class="btn updateBtn">Submit</button>
+        <button class="btn cancelBtn">Cancel</button>
+      </div>
+
+      <input type="hidden" id="=id" name="id" value="">
+
+    </form>
+  </section>
+
+  <section id="no-contacts-found">
+  </section>
+
+  <footer>
+    <p>Developed by Svetlana Brennan.</p>
+  </footer>
+
+  <script id='noContactsTemplate' type='text/x-handlebars'>
+    <h2>There are no contacts starting with {{name}}.</h2>
+  </script>
+
+  <script id='contactTemplate' type='text/x-handlebars'>
+    <div id="{{id}}" class="individualContact">
+      <h2>{{full_name}}</h2>
+
+      <h4>Phone Number:</h4>
+      <p>{{phone_number}}</p>
+      <h4>Email:</h4>
+      <p>{{email}}</p>
+      <h4>Tags:</h4>
+      <div class="tags">
+        {{#if tags}}
+          {{#each tags}}
+            <button class="tag">{{this}}</button>
+          {{/each}}
+        {{else}}
+          No tags
+        {{/if}}
+      </div>
+    
+      <button class="btn editBtn"><i class="fa fa-pencil"></i> Edit</button>
+      <button class="btn deleteBtn"><i class="fa fa-trash"></i> Delete</button>
+      
+    </div>
+  </script>
+
+  <script id='contactList' type='text/x-handlebars'>
+    {{#each lists}}
+    {{> contactTemplate}}
+    {{/each}}
+  </script>
+  <script src="javascripts/contacts.js"></script>
+</body>
+
+</html>
